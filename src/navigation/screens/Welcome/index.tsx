@@ -1,14 +1,4 @@
-import { Text } from "@react-navigation/elements";
-import { StyleSheet, View } from "react-native";
-import {
-  ButtonLogin,
-  Container,
-  Row,
-  TextButtonLogin,
-  Title,
-  Value,
-  WelcomeTitle,
-} from "./styles";
+import { Container, Row, Title, Value } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,6 +8,8 @@ import Animated, {
   useAnimatedStyle,
   Easing,
 } from "react-native-reanimated";
+import MainTitle from "../../../components/MainTitle";
+import Button from "../../../components/Button";
 
 type IUser = {
   name: string;
@@ -71,15 +63,13 @@ export default function Welcome() {
 
     setTimeout(() => {
       randomOpacity.value = 1;
-    }, 2800);
+    }, 2000);
   }, []);
 
   return (
     <Animated.View style={[{}, style]}>
       <Container>
-        <WelcomeTitle style={{ fontSize: 24, color: "blue", fontWeight: 700 }}>
-          Bem-vindo
-        </WelcomeTitle>
+        <MainTitle text="Bem-vindo" />
         <Row>
           <Title>Nome: </Title>
           <Value>{user?.name}</Value>
@@ -89,9 +79,7 @@ export default function Welcome() {
           <Value>{user?.email}</Value>
         </Row>
 
-        <ButtonLogin onPress={handleLogout}>
-          <TextButtonLogin>Logout</TextButtonLogin>
-        </ButtonLogin>
+        <Button onPress={handleLogout} text="Logout" />
       </Container>
     </Animated.View>
   );

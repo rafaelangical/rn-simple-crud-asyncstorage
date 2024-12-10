@@ -1,15 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  ButtonCTA,
-  ButtonLogin,
-  Container,
-  Input,
-  Label,
-  TextButton,
-  ErrorLabel,
-  TextButtonLogin,
-  MainTitle,
-} from "./styles";
+import { Container, Label, ErrorLabel } from "./styles";
 import { KeyboardAvoidingView } from "react-native";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
@@ -22,6 +12,9 @@ import Animated, {
   useAnimatedStyle,
   Easing,
 } from "react-native-reanimated";
+import Input from "../../../components/Input";
+import MainTitle from "../../../components/MainTitle";
+import Button from "../../../components/Button";
 
 type IFormData = {
   email: string;
@@ -104,14 +97,14 @@ export default function Login() {
 
     setTimeout(() => {
       randomOpacity.value = 1;
-    }, 2800);
+    }, 2000);
   }, []);
 
   return (
     <KeyboardAvoidingView>
       <Container>
         <Animated.View style={[{}, style]}>
-          <MainTitle>Login</MainTitle>
+          <MainTitle text="Login" />
         </Animated.View>
         <ErrorLabel>{error}</ErrorLabel>
 
@@ -122,7 +115,7 @@ export default function Login() {
             required: true,
           }}
           render={({ field: { onChange, value } }) => (
-            <Input value={value} onChangeText={onChange} placeholder="Email" />
+            <Input value={value} onChange={onChange} placeholder="Email" />
           )}
           name="email"
         />
@@ -136,7 +129,7 @@ export default function Login() {
           render={({ field: { onChange, value } }) => (
             <Input
               value={value}
-              onChangeText={onChange}
+              onChange={onChange}
               placeholder="Senha"
               secureTextEntry
             />
@@ -144,12 +137,15 @@ export default function Login() {
           name="password"
         />
         {errors.password && <ErrorLabel>{errors.password.message}</ErrorLabel>}
-        <ButtonLogin onPress={handleLogin}>
-          <TextButtonLogin>Não tem login? Cadastre-se</TextButtonLogin>
-        </ButtonLogin>
-        <ButtonCTA onPress={handleSubmit((e) => onPressSend(e as IFormData))}>
-          <TextButton>Login</TextButton>
-        </ButtonCTA>
+        <Button
+          onPress={handleLogin}
+          text="Não tem login? Cadastre-se"
+          unstyled
+        />
+        <Button
+          onPress={handleSubmit((e) => onPressSend(e as IFormData))}
+          text="Login"
+        />
       </Container>
     </KeyboardAvoidingView>
   );

@@ -1,13 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  ButtonCTA,
-  ButtonLogin,
-  Container,
-  Input,
-  Label,
-  TextButton,
-  ErrorLabel,
-} from "./styles";
+import React, { useCallback, useEffect } from "react";
+import { ButtonLogin, Container, Label, ErrorLabel } from "./styles";
 import { KeyboardAvoidingView } from "react-native";
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
@@ -20,7 +12,9 @@ import Animated, {
   useAnimatedStyle,
   Easing,
 } from "react-native-reanimated";
-import { TextButtonLogin } from "../Login/styles";
+import Input from "../../../components/Input";
+import MainTitle from "../../../components/MainTitle";
+import Button from "../../../components/Button";
 
 type IFormData = {
   name: string;
@@ -95,7 +89,7 @@ export default function CreateUser() {
 
     setTimeout(() => {
       randomOpacity.value = 1;
-    }, 2800);
+    }, 2000);
   }, []);
 
   return (
@@ -114,16 +108,7 @@ export default function CreateUser() {
             style,
           ]}
         >
-          <Label
-            style={[
-              {
-                fontSize: 24,
-                color: "blue",
-              },
-            ]}
-          >
-            Cadastro de Usuário
-          </Label>
+          <MainTitle text="Cadastro de Usuário" />
         </Animated.View>
         <Label> Nome</Label>
         <Controller
@@ -132,7 +117,7 @@ export default function CreateUser() {
             required: true,
           }}
           render={({ field: { onChange, value } }) => (
-            <Input value={value} onChangeText={onChange} placeholder="Nome" />
+            <Input value={value} onChange={onChange} placeholder="Nome" />
           )}
           name="name"
         />
@@ -144,7 +129,7 @@ export default function CreateUser() {
             required: true,
           }}
           render={({ field: { onChange, value } }) => (
-            <Input value={value} onChangeText={onChange} placeholder="Email" />
+            <Input value={value} onChange={onChange} placeholder="Email" />
           )}
           name="email"
         />
@@ -158,7 +143,7 @@ export default function CreateUser() {
           render={({ field: { onChange, value } }) => (
             <Input
               value={value}
-              onChangeText={onChange}
+              onChange={onChange}
               placeholder="Senha"
               secureTextEntry
             />
@@ -175,7 +160,7 @@ export default function CreateUser() {
           render={({ field: { onChange, value } }) => (
             <Input
               value={value}
-              onChangeText={onChange}
+              onChange={onChange}
               placeholder="Confirmação de senha"
               secureTextEntry
             />
@@ -185,11 +170,11 @@ export default function CreateUser() {
         {errors.confirmPassword && (
           <ErrorLabel>{errors.confirmPassword.message}</ErrorLabel>
         )}
-        <ButtonLogin onPress={handleLogin}>
-          <TextButtonLogin>
-            Ja é cadastrado? clique para realizar login
-          </TextButtonLogin>
-        </ButtonLogin>
+        <Button
+          onPress={handleLogin}
+          text="Ja é cadastrado? clique para realizar login"
+          unstyled
+        />
         <Animated.View
           style={[
             {
@@ -198,9 +183,10 @@ export default function CreateUser() {
             style,
           ]}
         >
-          <ButtonCTA onPress={handleSubmit((e) => onPressSend(e as IFormData))}>
-            <TextButton>Cadastrar</TextButton>
-          </ButtonCTA>
+          <Button
+            onPress={handleSubmit((e) => onPressSend(e as IFormData))}
+            text="Cadastrar"
+          />
         </Animated.View>
       </Container>
     </KeyboardAvoidingView>

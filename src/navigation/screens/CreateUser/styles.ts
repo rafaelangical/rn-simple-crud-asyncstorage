@@ -28,22 +28,6 @@ export const Label = styled(Text)`
   align-self: flex-start;
 `;
 
-export const ButtonCTA = styled(TouchableOpacity)`
-  width: 100%;
-  background-color: blue;
-  border: 1px solid #999;
-  height: 45px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-  border-radius: 8px;
-`;
-
-export const TextButton = styled(Text)`
-  color: #fff;
-  font-weight: 700;
-`;
-
 export const ButtonLogin = styled(TouchableOpacity)`
   border: none;
   color: #000;
